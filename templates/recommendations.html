@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link href="http://fonts.cdnfonts.com/css/made-sunflower" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css">
+
+  <style type="text/css">
+* {
+  box-sizing: border-box;
+}
+html {
+	height: 100%;
+}
+
+body {
+	font-family: 'MADE Sunflower', sans-serif;
+  background: linear-gradient(rgba(255 253 208 / 14%),rgba(255 253 208 / 14%)),
+      url('../static/img/bg3.png')
+}
+
+h2{
+  padding: 30px;
+  text-align: center;
+}
+
+
+.col-sm img{
+  max-width: 100% !important;
+  height: 100%;
+}
+
+
+
+.box-3{
+  width: 100%;
+  text-align: end;
+  margin-top: 40px;
+}
+
+.box-3 input{
+  font-size: 17px;
+    width: 136px;
+    padding: 7px;
+    font-family: 'MADE Sunflower';
+    background-color: #ae278f;
+    color: white;
+    border: 2px solid #ae278f;
+    border-radius: 5px;
+    margin-right: 26px;
+    margin-top: 30px;
+}
+
+.box-3 input:hover{
+  background-color: #9c3d86;
+  cursor: pointer;
+}
+
+
+.column img{
+  max-width: 90% !important;
+  height: 100%;
+  margin: 20px;
+}
+
+.radio_group{
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  position: relative;
+  text-align: center;
+  line-height: 50px;
+  font-size: 40px;
+}
+.radio_group input[type="radio"]{
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+.radio_group input[type="radio"] + label{
+  color: #95a5a6;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(.8);
+}
+.radio_group input[type="radio"]:checked + label{
+  color:#3498db;
+  transform: scale(1.1);
+}
+
+.fa {
+  /* margin-top: 82%; */
+  font-size: 40px;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.fa:hover {
+  color: darkblue;
+}
+
+</style>
+</head>
+<body>
+  <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="/signIn.html">Sign in</a>
+                <a href="#">FAQs</a>
+            </div>
+        </div>
+        <!-- <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="price">$0.00</div>
+        </div> -->
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+            <p>Free shipping, 30-day return or refund guarantee.</p>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <!-- <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                            <p>Free shipping, 30-day return or refund guarantee.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+                                <a href="./signIn.html">Sign in</a>
+                                <a href="#">FAQs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="{{ url_for('home') }}"><span style="color: purple;">STYLE</span><span style="color: goldenrod;">Match</span></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+                            <li><a href="{{ url_for('about') }}">About Us</a></li>
+                            <li><a href="{{ url_for('blog') }}">Blog</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ url_for('blogDetails') }}">Blog Details</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="../static/img/icon/search.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+<h2>Your match to fit your style! </h2>
+
+<div class="container">
+  <div class="row" style="height: 350px;">
+    <div class="col-sm">
+      <img src="../static/images/{{img1}}">
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+    </div>
+    <div class="col-sm">
+      <img src="../static/images/{{img2}}">
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+    </div>
+    <div class="col-sm">
+      <img src="../static/images/{{img3}}">
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="box-3">
+  <form method="post" action="/TryAgain">
+    <input type="submit" name="submit" value="Try Again" />
+  </form>
+</div>
+
+
+
+
+
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.nice-select.min.js"></script>
+<script src="../static/js/jquery.nicescroll.min.js"></script>
+<script src="../static/js/jquery.magnific-popup.min.js"></script>
+<script src="../static/js/jquery.countdown.min.js"></script>
+<script src="../static/js/jquery.slicknav.js"></script>
+<script src="../static/js/mixitup.min.js"></script>
+<script src="../static/js/owl.carousel.min.js"></script>
+<script src="../static/js/main.js"></script>
+<script>
+
+function myFunction(x) {
+  
+console.log("Thumbs up")
+
+
+  
+}
+
+initComparisons();
+
+
+function initComparisons() {
+  var x, i;
+  /*find all elements with an "overlay" class:*/
+  x = document.getElementsByClassName("img-comp-overlay");
+  for (i = 0; i < x.length; i++) {
+    /*once for each "overlay" element:
+    pass the "overlay" element as a parameter when executing the compareImages function:*/
+    compareImages(x[i]);
+  }
+  function compareImages(img) {
+    var slider, img, clicked = 0, w, h;
+    /*get the width and height of the img element*/
+    w = img.offsetWidth;
+    h = img.offsetHeight;
+    /*set the width of the img element to 50%:*/
+    img.style.width = (w / 2) + "px";
+    /*create slider:*/
+    slider = document.createElement("DIV");
+    slider.setAttribute("class", "img-comp-slider");
+    /*insert slider*/
+    img.parentElement.insertBefore(slider, img);
+    /*position the slider in the middle:*/
+    slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+    slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+    /*execute a function when the mouse button is pressed:*/
+    slider.addEventListener("mousedown", slideReady);
+    /*and another function when the mouse button is released:*/
+    window.addEventListener("mouseup", slideFinish);
+    /*or touched (for touch screens:*/
+    slider.addEventListener("touchstart", slideReady);
+    /*and released (for touch screens:*/
+    window.addEventListener("touchend", slideFinish);
+    function slideReady(e) {
+      /*prevent any other actions that may occur when moving over the image:*/
+      e.preventDefault();
+      /*the slider is now clicked and ready to move:*/
+      clicked = 1;
+      /*execute a function when the slider is moved:*/
+      window.addEventListener("mousemove", slideMove);
+      window.addEventListener("touchmove", slideMove);
+    }
+    function slideFinish() {
+      /*the slider is no longer clicked:*/
+      clicked = 0;
+    }
+    function slideMove(e) {
+      var pos;
+      /*if the slider is no longer clicked, exit this function:*/
+      if (clicked == 0) return false;
+      /*get the cursor's x position:*/
+      pos = getCursorPos(e)
+      /*prevent the slider from being positioned outside the image:*/
+      if (pos < 0) pos = 0;
+      if (pos > w) pos = w;
+      /*execute a function that will resize the overlay image according to the cursor:*/
+      slide(pos);
+    }
+    function getCursorPos(e) {
+      var a, x = 0;
+      e = (e.changedTouches) ? e.changedTouches[0] : e;
+      /*get the x positions of the image:*/
+      a = img.getBoundingClientRect();
+      /*calculate the cursor's x coordinate, relative to the image:*/
+      x = e.pageX - a.left;
+      /*consider any page scrolling:*/
+      x = x - window.pageXOffset;
+      return x;
+    }
+    function slide(x) {
+      /*resize the image:*/
+      img.style.width = x + "px";
+      /*position the slider:*/
+      slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+    }
+  }
+}
+</script>
+</body>
+</html>
