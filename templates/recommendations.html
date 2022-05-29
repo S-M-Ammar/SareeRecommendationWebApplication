@@ -44,8 +44,6 @@ h2{
   height: 100%;
 }
 
-
-
 .box-3{
   width: 100%;
   text-align: end;
@@ -174,9 +172,9 @@ h2{
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-3">
-                    <div class="header__logo">
-                        <a href="{{ url_for('home') }}"><span style="color: purple;">STYLE</span><span style="color: goldenrod;">Match</span></a>
-                    </div>
+                  <div class="header__logo">
+                    <a href="{{ url_for('home') }}"></a><img src="../static/img/logo.png"/></a>
+                </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
@@ -210,24 +208,45 @@ h2{
   <div class="row" style="height: 350px;">
     <div class="col-sm">
       <img src="../static/images/{{img1}}">
-      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+      <!-- <p id="image_1_id" name="" style="display: none;">{{id_1}}</p> -->
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" style="color: {{color_1}};" id="thumbsup_1"></i>
     </div>
+    
     <div class="col-sm">
       <img src="../static/images/{{img2}}">
-      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+      <!-- <p id="image_2_id" name="" style="display: none;">{{id_2}}</p> -->
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" style="color: {{color_2}};" id="thumbsup_2"></i>
     </div>
+   
     <div class="col-sm">
       <img src="../static/images/{{img3}}">
-      <i onclick="myFunction(this)" class="fa fa-thumbs-up" id="thumbsup"></i>
+      <!-- <p id="image_3_id" name="" style="display: none;">{{id_3}}</p> -->
+      <i onclick="myFunction(this)" class="fa fa-thumbs-up" style="color: {{color_3}};" id="thumbsup_3"></i>
     </div>
+    
   </div>
 </div>
 
 
 
 <div class="box-3">
-  <form method="post" action="/TryAgain">
+  <form method="post" action="/TryAgain" id="try_form">
+
     <input type="submit" name="submit" value="Try Again" />
+    
+    <input type="text" id="image_1_id" name="image_1_id" value="{{id_1}}" style="display: none;">
+    <input type="text" id="image_2_id" name="image_2_id" value="{{id_2}}" style="display: none;">
+    <input type="text" id="image_3_id" name="image_3_id" value="{{id_3}}" style="display: none;">
+
+    <input type="text" id="image_1_like" name="image_1_like" value="False" style="display: none;">
+    <input type="text" id="image_2_like" name="image_2_like" value="False" style="display: none;">
+    <input type="text" id="image_3_like" name="image_3_like" value="False" style="display: none;">
+
+  </form>
+</div>
+<div class="box-3">
+  <form method="post" action="/TryAgain">
+    <input type="submit" name="submit" value="Save & Return" />
   </form>
 </div>
 
@@ -247,12 +266,67 @@ h2{
 <script src="../static/js/main.js"></script>
 <script>
 
-function myFunction(x) {
-  
-console.log("Thumbs up")
+if(document.getElementById("thumbsup_1").style.color=="blue"){
+  document.getElementById("image_1_like").value = "True"
+}
+
+if(document.getElementById("thumbsup_2").style.color=="blue"){
+  document.getElementById("image_2_like").value = "True"
+}
+
+if(document.getElementById("thumbsup_3").style.color=="blue"){
+  document.getElementById("image_3_like").value = "True"
+}
 
 
-  
+function myFunction(x) 
+{
+    
+    console.log("Thumbs up")
+    all_icons = document.getElementsByClassName("fa-thumbs-up")
+    console.log(all_icons[0])
+    if(x.id=="thumbsup_1")
+    {
+        let icon = document.getElementById(x.id)
+        if(icon.style.color == "blue"){
+          icon.style.color = "black"
+          document.getElementById("image_1_like").value="False"
+        }
+        else{
+          icon.style.color = "blue"
+          document.getElementById("image_1_like").value="True"
+        }
+    }
+
+    if(x.id=="thumbsup_2")
+    {
+        let icon = document.getElementById(x.id)
+        if(icon.style.color == "blue"){
+          icon.style.color = "black"
+          document.getElementById("image_2_like").value="False"
+        }
+        else{
+          icon.style.color = "blue"
+          document.getElementById("image_2_like").value="True"
+        }
+       
+    }
+
+    if(x.id=="thumbsup_3")
+    {
+        let icon = document.getElementById(x.id)
+        if(icon.style.color == "blue")
+        {
+          icon.style.color = "black"
+          document.getElementById("image_3_like").value="False"
+        }
+        else
+        {
+          icon.style.color = "blue"
+          document.getElementById("image_3_like").value="True"
+        }
+        
+    }
 }
 
 initComparisons();

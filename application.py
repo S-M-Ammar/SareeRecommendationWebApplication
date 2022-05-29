@@ -134,14 +134,17 @@ def recommend():
 
         a,b,c = perfrom_recommendations(df_connector.copy(),input_dict)
 
+        global_dict['recommendations_liked'] = {}
         
         global_dict['recommendations'] = pd.concat([a, b], ignore_index=True)
         global_dict['recommendations'] = pd.concat([global_dict['recommendations'], c], ignore_index=True)
         global_dict['recommendations'] = global_dict['recommendations'].drop_duplicates()
         
+        # print(".............................")
+        # print(global_dict["recommendations"].head(4))
         if(len(global_dict['recommendations'])==0):
             print("No results .. Sorry")
-            return render_template("recommendations.html",img1 = "no-img.png" ,img2 = "no-img.png" , img3 = "no-img.png")
+            return render_template("recommendations.html",img1 = "no-img.png" ,img2 = "no-img.png" , img3 = "no-img.png",id_1=-1,id_2=-1,id_3=-1,color_1='black',color_2='black',color_3='black')
             
         else:
             filter_recommendations = global_dict['recommendations'].iloc[global_dict['counter']:global_dict['counter']+3]
@@ -149,17 +152,23 @@ def recommend():
             img1 = "no-img.png"
             img2 = "no-img.png"
             img3 = "no-img.png"
+            id_1 = -1
+            id_2 = -1
+            id_3 = -1
             for x in range(0,len(filter_recommendations)):
                 if(x==0):
                     img1 = filter_recommendations.iloc[x,4]
+                    id_1 = filter_recommendations.iloc[x,0]
                     img1 = img1.replace("./images/","")
                 elif(x==1):
                     img2 = filter_recommendations.iloc[x,4]
+                    id_2 = filter_recommendations.iloc[x,0]
                     img2 = img2.replace("./images/","")
                 else:
                     img3 = filter_recommendations.iloc[x,4]
+                    id_3 = filter_recommendations.iloc[x,0]
                     img3 = img3.replace("./images/","")
-            return render_template("recommendations.html",img1 = img1 , img2 = img2 , img3 = img3)
+            return render_template("recommendations.html",img1 = img1 , img2 = img2 , img3 = img3,id_1=id_1,id_2=id_2,id_3=id_3,color_1='black',color_2='black',color_3='black')
               
     except Exception as e:
         print(e)
@@ -168,6 +177,39 @@ def recommend():
 @application.route('/TryAgain',methods=['POST'])
 def recommend_again():
     try:
+        #------------------------------------------------#
+        img_id_1 = int(request.form['image_1_id'])
+        img_id_2 = int(request.form['image_2_id'])
+        img_id_3 = int(request.form['image_3_id'])
+
+        like_flag_1 = request.form['image_1_like']
+        like_flag_2 = request.form['image_2_like']
+        like_flag_3 = request.form['image_3_like']
+
+        if(like_flag_1=='True' and img_id_1!=-1):
+            global_dict["recommendations_liked"][img_id_1] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img_id_1]
+            except:
+                pass
+
+        if(like_flag_2=='True' and img_id_2!=-1):
+            global_dict["recommendations_liked"][img_id_2] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img_id_2]
+            except:
+                pass
+
+        if(like_flag_3=='True' and img_id_3!=-1):
+            global_dict["recommendations_liked"][img_id_3] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img_id_3]
+            except:
+                pass
+        #------------------------------------------------#
         
         if(global_dict['counter']>=len(global_dict['recommendations'])):
             global_dict['counter'] = 0
@@ -179,18 +221,37 @@ def recommend_again():
         img2 = "no-img.png"
         img3 = "no-img.png"
 
+        id_1 = -1
+        id_2 = -1
+        id_3 = -1
+
+        color_1 = "black"
+        color_2 = "black"
+        color_3 = "black"
+
+
         for x in range(0,len(filter_recommendations)):
                 if(x==0):
                     img1 = filter_recommendations.iloc[x,4]
                     img1 = img1.replace("./images/","")
+                    id_1 = filter_recommendations.iloc[x,0]
+                    if(id_1 in global_dict['recommendations_liked']):
+                        color_1 = "blue"
+
                 elif(x==1):
                     img2 = filter_recommendations.iloc[x,4]
                     img2 = img2.replace("./images/","")
+                    id_2 = filter_recommendations.iloc[x,0]
+                    if(id_2 in global_dict['recommendations_liked']):
+                        color_2 = "blue"
                 else:
                     img3 = filter_recommendations.iloc[x,4]
                     img3 = img3.replace("./images/","")
+                    id_3 = filter_recommendations.iloc[x,0]
+                    if(id_3 in global_dict['recommendations_liked']):
+                        color_3 = "blue"
 
-        return render_template("recommendations.html",img1 = img1 , img2 = img2 , img3 = img3)
+        return render_template("recommendations.html",img1 = img1 , img2 = img2 , img3 = img3, id_1=id_1, id_2=id_2, id_3=id_3,color_1=color_1,color_2=color_2,color_3=color_3)
 
 
     except Exception as e:
