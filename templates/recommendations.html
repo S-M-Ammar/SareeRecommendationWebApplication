@@ -46,8 +46,10 @@ h2{
 
 .box-3{
   width: 100%;
-  text-align: end;
   margin-top: 40px;
+  float: left;
+  display: flex;
+  justify-content: center;
 }
 
 .box-3 input{
@@ -243,11 +245,13 @@ h2{
     <input type="text" id="image_3_like" name="image_3_like" value="False" style="display: none;">
 
   </form>
-</div>
-<div class="box-3">
+
   <form method="post" action="/TryAgain">
     <input type="submit" name="submit" value="Save & Return" />
   </form>
+</div>
+<div class="box-3">
+  
 </div>
 
 
