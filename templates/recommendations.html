@@ -28,6 +28,8 @@ html {
 }
 
 body {
+  width: 100%;
+  height: auto;
 	font-family: 'MADE Sunflower', sans-serif;
   background: linear-gradient(rgba(255 253 208 / 14%),rgba(255 253 208 / 14%)),
       url('../static/img/bg3.png')
@@ -46,10 +48,11 @@ h2{
 
 .box-3{
   width: 100%;
-  margin-top: 40px;
-  float: left;
+  margin-top: 110px;
   display: flex;
   justify-content: center;
+  position: fixed;
+  bottom: 5px;
 }
 
 .box-3 input{
@@ -119,11 +122,24 @@ h2{
     user-select: none;
     width: 100%;
     text-align: center;
-    padding-top: 10px;
 }
 
 .fa:hover {
   color: darkblue;
+}
+
+
+@media screen and (min-width: 320px) and  (max-width: 780px) {
+  .col-sm{
+  padding-bottom: 100px;
+}
+
+.box-3{
+  margin-left: 15px;
+}
+
+
+	
 }
 
 </style>
