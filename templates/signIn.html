@@ -241,18 +241,18 @@ body{
      <div class="wrapper">
          <div class="headline">
              <h1>Welcome To StyleMatch</h1>
-             <h2>Sign Up</h2>
+             <!-- <h2>Sign Up</h2> -->
          </div>
-         <form class="form" method="post" action="/">
+         <form class="form" id="signedUpForm" method="post" action="/signedUp">
             <div class="signup">
                 <div class="form-group">
-                    <input type="text" placeholder="Full name" required="">
+                    <input type="text" id="name" name="name" placeholder="Full name" required="">
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Email" required="">
+                    <input type="email" id="email" name="email" placeholder="Email" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Password" required="">
+                    <input type="password" id="password" name="password"  placeholder="Password" required="">
                 </div>
                 <button type="submit" class="btn">SIGN UP</button>
                 <div class="account-exist">
@@ -283,11 +283,14 @@ body{
          </form>
      </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../static/js/main.js"></script>
 
     <script type="text/javascript">
          let btnLogin = document.getElementById("login");
          let btnSignUp = document.getElementById("signup");
+
+         let signedUpForm = document.getElementById("signedUpForm")
 
          let signIn = document.querySelector(".signin");
          let signUp = document.querySelector(".signup");
@@ -301,6 +304,27 @@ body{
             signIn.classList.remove("active");
             signUp.classList.remove("inActive");
         }
+
+        signedUpForm.addEventListener("submit",(e)=>{
+            e.preventDefault();
+            let name = document.getElementById("name").value
+            let email = document.getElementById("email").value
+            let pass = document.getElementById("password").value
+
+            axios.post('/signedUp',{
+                "name":name,
+                "email":email,
+                "password":pass
+            }).then((r)=>{
+                console.log(r.data)
+                btnLogin.click()
+                alert("Account created. Kindly Login")
+            }).catch((e)=>{
+                console.log(e)
+                alert("Account already exists")
+            })
+        })
+        
 
     </script>
 </body>

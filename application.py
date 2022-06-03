@@ -1,7 +1,11 @@
 from database import *
 from flask import Flask,render_template,request,session
 from algo import perfrom_recommendations
+import json
 
+# Start of application....
+# Getting database connection
+c , conn = create_schema()
 
 application = Flask(__name__)
 application.config["SESSION_PERMANENT"] = False
@@ -87,9 +91,14 @@ def signedIn():
 @application.route("/signedUp",methods=['POST'])
 def signedUp():
     try:
-        pass
-    except:
-         return render_template("error.html")
+        data = json.loads(request.data)
+        c.execute("insert into Clients (name,email,password) values (?,?,?)",(data['name'],data['email'],data['password'],))
+        conn.commit()
+        return("user created")
+    except Exception as e:
+         print(e)
+         return("Error")
+         
 
 @application.route('/recommend',methods=['POST'])
 def recommend():
