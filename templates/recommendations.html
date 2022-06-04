@@ -48,11 +48,11 @@ h2{
 
 .box-3{
   width: 100%;
-  margin-top: 110px;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
-  position: fixed;
-  bottom: 5px;
+  bottom: 0;
+  padding-bottom: 10px;
 }
 
 .box-3 input{
@@ -140,6 +140,7 @@ h2{
 }
 
 .box-3{
+  margin-top: 0px;
   margin-left: 15px;
 }
 
@@ -227,8 +228,8 @@ h2{
 
 <h2>Your match to fit your style! </h2>
 
-<div class="container" style="padding-bottom: 150px;">
-  <div class="row" style="height: 350px;">
+<div class="container">
+  <div class="row" >
     <div class="col-sm">
       <img src="../static/images/{{img1}}">
       <!-- <p id="image_1_id" name="" style="display: none;">{{id_1}}</p> -->
@@ -270,9 +271,6 @@ h2{
   <form method="post" action="/TryAgain">
     <input type="submit" name="submit" value="Save & Return" />
   </form>
-</div>
-<div class="box-3">
-  
 </div>
 
 
