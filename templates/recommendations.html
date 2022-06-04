@@ -128,8 +128,13 @@ h2{
   color: darkblue;
 }
 
+/* @media screen and (min-width: 320px) and (max-width: 780px){
+.col-sm {
+     padding-bottom: 0px; 
+}
 
-@media screen and (min-width: 320px) and  (max-width: 780px) {
+} */
+@media screen and (min-width: 320px) and  (max-width: 575px) {
   .col-sm{
   padding-bottom: 100px;
 }
@@ -222,7 +227,7 @@ h2{
 
 <h2>Your match to fit your style! </h2>
 
-<div class="container">
+<div class="container" style="padding-bottom: 150px;">
   <div class="row" style="height: 350px;">
     <div class="col-sm">
       <img src="../static/images/{{img1}}">
