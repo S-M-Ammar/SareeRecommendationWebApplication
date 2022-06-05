@@ -23,7 +23,7 @@ def create_schema():
           ''')
     c.execute('''
           CREATE TABLE IF NOT EXISTS UsersToProducts
-          ([user_id] INTEGER PRIMARY KEY, [Name] TEXT )
+          ([id] INTEGER PRIMARY KEY, [user_id] INTEGER , [product_id] INTEGER)
           ''')
     conn.commit()
     print("Schema Generated/Loaded Successfully")

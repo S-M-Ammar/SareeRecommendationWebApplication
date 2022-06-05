@@ -270,6 +270,14 @@ h2{
 
   <form method="post" action="/save">
     <input type="submit" name="submit" value="Save & Return" />
+    <input type="text" id="image_1_id_save" name="image_1_id_save" value="{{id_1}}" style="display: none;">
+    <input type="text" id="image_2_id_save" name="image_2_id_save" value="{{id_2}}" style="display: none;">
+    <input type="text" id="image_3_id_save" name="image_3_id_save" value="{{id_3}}" style="display: none;">
+
+    <input type="text" id="image_1_like_save" name="image_1_like_save" value="False" style="display: none;">
+    <input type="text" id="image_2_like_save" name="image_2_like_save" value="False" style="display: none;">
+    <input type="text" id="image_3_like_save" name="image_3_like_save" value="False" style="display: none;">
+
   </form>
 </div>
 
@@ -291,14 +299,17 @@ h2{
 
 if(document.getElementById("thumbsup_1").style.color=="blue"){
   document.getElementById("image_1_like").value = "True"
+  document.getElementById("image_1_like_save").value = "True"
 }
 
 if(document.getElementById("thumbsup_2").style.color=="blue"){
   document.getElementById("image_2_like").value = "True"
+  document.getElementById("image_2_like_save").value = "True"
 }
 
 if(document.getElementById("thumbsup_3").style.color=="blue"){
   document.getElementById("image_3_like").value = "True"
+  document.getElementById("image_3_like_save").value = "True"
 }
 
 
@@ -314,10 +325,12 @@ function myFunction(x)
         if(icon.style.color == "blue"){
           icon.style.color = "black"
           document.getElementById("image_1_like").value="False"
+          document.getElementById("image_1_like_save").value = "False"
         }
         else{
           icon.style.color = "blue"
           document.getElementById("image_1_like").value="True"
+          document.getElementById("image_1_like_save").value = "True"
         }
     }
 
@@ -327,10 +340,12 @@ function myFunction(x)
         if(icon.style.color == "blue"){
           icon.style.color = "black"
           document.getElementById("image_2_like").value="False"
+          document.getElementById("image_2_like_save").value = "False"
         }
         else{
           icon.style.color = "blue"
           document.getElementById("image_2_like").value="True"
+          document.getElementById("image_2_like_save").value = "True"
         }
        
     }
@@ -342,11 +357,13 @@ function myFunction(x)
         {
           icon.style.color = "black"
           document.getElementById("image_3_like").value="False"
+          document.getElementById("image_3_like_save").value = "False"
         }
         else
         {
           icon.style.color = "blue"
           document.getElementById("image_3_like").value="True"
+          document.getElementById("image_3_like_save").value = "True"
         }
         
     }

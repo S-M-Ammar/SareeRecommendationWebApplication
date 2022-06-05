@@ -1,5 +1,3 @@
-from ast import pattern
-from sqlalchemy import null
 from database import *
 from flask import Flask,render_template,request,session
 from algo import perfrom_recommendations
@@ -83,9 +81,15 @@ def signUpScreen():
 @application.route("/signedIn",methods=['POST'])
 def signedIn():
     try:
-        session['email'] = request.form['email']
-        session['password'] = request.form['password']
-        return render_template("form.html")
+        c.execute("SELECT * FROM Clients WHERE email=? and password=?", (request.form['email'],request.form['password'],))
+        conn.commit()
+        rows = c.fetchall()
+        if(len(rows)==1):
+            session['email'] = request.form['email']
+            session['password'] = request.form['password']
+            return render_template("form.html")
+        else:
+            return "Invalid User :("
     except:
         return render_template("error.html")
 
@@ -275,26 +279,83 @@ def recommend_again():
 
 @application.route('/save',methods=['POST'])
 def save_response():
-    print(global_dict['user_input'])
-    print("\n\n")
+    try:
+        #------------------------------------------------#
+        img1_id = request.form["image_1_id_save"]
+        img2_id = request.form["image_2_id_save"]
+        img3_id = request.form["image_3_id_save"] 
+
+        img1_like = request.form["image_1_like_save"]
+        img2_like = request.form["image_2_like_save"]
+        img3_like = request.form["image_3_like_save"]
+
+        if(img1_like=='True' and img1_id!=-1):
+            global_dict["recommendations_liked"][img1_id] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img1_id]
+            except:
+                pass 
+
+        if(img2_like=='True' and img2_id!=-1):
+            global_dict["recommendations_liked"][img2_id] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img2_id]
+            except:
+                pass 
+
+        if(img3_like=='True' and img3_id!=-1):
+            global_dict["recommendations_liked"][img3_id] = 'True'
+        else:
+            try:
+                del global_dict["recommendations_liked"][img3_id]
+            except:
+                pass        
+
+        #------------------------------------------------#
+
+
+
+        print(global_dict['user_input'])
+        print("\n\n")
     
-    name = global_dict['user_input']['Name']
-    age = global_dict['user_input']['Age']
-    base_color = None
-    pattern_color = None
+        name = global_dict['user_input']['Name']
+        age = global_dict['user_input']['Age']
+        base_color = global_dict['user_input']['Age']
+        material = global_dict['user_input']['material']
+        description = global_dict['user_input']['Description']
+        event = global_dict['user_input']['Event']
+        time = global_dict['user_input']['Time']
+        venue = global_dict['user_input']['Venue']
 
-    if("acsent_color" in global_dict['user_input']):
-        pass
+        acsent_color = ""
+        pattern_color = ""
+        kind_of_pattern = ""
 
-    if("pattern_color" in global_dict['user_input']):
-        pass
+        type_of_recommendation = ""
 
-    base_color = global_dict['user_input']['Age']
+        if("acsent_color" in global_dict['user_input']):
+            acsent_color = ",".join(global_dict['user_input']['acsent_color'])
+            type_of_recommendation = "acsent"
 
-    c.execute("insert into Users (Name,Age,event,TIME,VENUE,description,base_color,acsent_color,material,pattern_color,kind_of_pattern,recommendation_type) values (?,?,?,?,?,?,?,?,?,?,?,?)",(data['name'],data['email'],data['password'],))
-    conn.commit()
-    print(global_dict['recommendations_liked'])
-    return global_dict
+        if("pattern_color" in global_dict['user_input']):
+            pattern_color = ",".join(global_dict['user_input']['pattern_color'])
+            type_of_recommendation = "pattern"
+
+        c.execute("insert into Users (Name,Age,event,TIME,VENUE,description,base_color,acsent_color,material,pattern_color,kind_of_pattern,recommendation_type) values (?,?,?,?,?,?,?,?,?,?,?,?)",(name,age,event,time,venue,description,base_color,acsent_color,material,pattern_color,kind_of_pattern,type_of_recommendation,))
+        conn.commit()
+        print(global_dict['recommendations_liked'])
+        user_id = c.lastrowid
+        for x in global_dict['recommendations_liked'].keys():
+            c.execute("insert into UsersToProducts (user_id,product_id) values(?,?)",(user_id,x))
+        conn.commit()
+        return render_template("index.html")
+
+    except Exception as e:
+        print(e)
+        return render_template("error.html")
+
 
 if __name__ == '__main__':
     application.run(debug=True)

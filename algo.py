@@ -317,6 +317,10 @@ def perfrom_recommendations(df,input_dict):
         cont_df = cont_df.iloc[cont_color]
         mono_df = mono_df.iloc[mono_color]
 
+        comp_df =  comp_df[~comp_df["Material Description"].str.contains("Plain")]
+        cont_df =  cont_df[~cont_df["Material Description"].str.contains("Plain")]
+        mono_df =  mono_df[~mono_df["Material Description"].str.contains("Plain")]
+
 
         # return comp_df , cont_df , mono_df
     else:
