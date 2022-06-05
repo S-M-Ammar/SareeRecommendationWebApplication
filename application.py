@@ -1,3 +1,5 @@
+from ast import pattern
+from sqlalchemy import null
 from database import *
 from flask import Flask,render_template,request,session
 from algo import perfrom_recommendations
@@ -141,6 +143,9 @@ def recommend():
             input_dict['kind_of_pattern'] = request.form["kind_of_pattern"]
         
 
+        global_dict['user_input'] = input_dict
+
+
         a,b,c = perfrom_recommendations(df_connector.copy(),input_dict)
 
         global_dict['recommendations_liked'] = {}
@@ -266,6 +271,30 @@ def recommend_again():
     except Exception as e:
         print(e)
         return render_template("error.html")
+
+
+@application.route('/save',methods=['POST'])
+def save_response():
+    print(global_dict['user_input'])
+    print("\n\n")
+    
+    name = global_dict['user_input']['Name']
+    age = global_dict['user_input']['Age']
+    base_color = None
+    pattern_color = None
+
+    if("acsent_color" in global_dict['user_input']):
+        pass
+
+    if("pattern_color" in global_dict['user_input']):
+        pass
+
+    base_color = global_dict['user_input']['Age']
+
+    c.execute("insert into Users (Name,Age,event,TIME,VENUE,description,base_color,acsent_color,material,pattern_color,kind_of_pattern,recommendation_type) values (?,?,?,?,?,?,?,?,?,?,?,?)",(data['name'],data['email'],data['password'],))
+    conn.commit()
+    print(global_dict['recommendations_liked'])
+    return global_dict
 
 if __name__ == '__main__':
     application.run(debug=True)
